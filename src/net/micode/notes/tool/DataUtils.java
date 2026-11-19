@@ -35,6 +35,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 
+/**
+ * 便签增删改查的静态工具类，界面层与模型层共用。
+ * 不持有 Context，避免把 Activity 的生命周期带进工具层。
+ */
 public class DataUtils {
     public static final String TAG = "DataUtils";
     public static boolean batchDeleteNotes(ContentResolver resolver, HashSet<Long> ids) {
@@ -80,6 +84,15 @@ public class DataUtils {
         resolver.update(ContentUris.withAppendedId(Notes.CONTENT_NOTE_URI, id), values, null, null);
     }
 
+    /**
+     * 把一批便签移入目标文件夹。
+     * 操作先攒进列表再 applyBatch 提交，减少与 Provider 的往返次数；
+     * 但框架默认逐条执行、没有包事务，中途失败会留下部分已移动的数据。
+     *
+     * @param ids      待移动的便签，null 或空集合时直接返回 false
+     * @param folderId 目标文件夹 id
+     * @return 全部提交成功返回 true
+     */
     public static boolean batchMoveToFolder(ContentResolver resolver, HashSet<Long> ids,
             long folderId) {
         if (ids == null) {

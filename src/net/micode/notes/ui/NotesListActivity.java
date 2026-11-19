@@ -428,6 +428,7 @@ public class NotesListActivity extends Activity implements OnClickListener, OnIt
                 String.valueOf(mCurrentFolderId)
         };
         if (!TextUtils.isEmpty(mTagFilter)) {
+            // 标签值走参数绑定，不拼进 SQL
             selection = "(" + selection + ") AND " + NoteColumns.TAGS + " LIKE ?";
             selectionArgs = new String[] {
                     String.valueOf(mCurrentFolderId), "%" + mTagFilter + "%"

@@ -933,6 +933,7 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         }
         mNoteLocked = !mNoteLocked;
         ContentValues values = new ContentValues();
+        // 锁定状态立即写库，不依赖页面保存
         values.put(NoteColumns.IS_LOCKED, mNoteLocked ? 1 : 0);
         getContentResolver().update(
                 ContentUris.withAppendedId(Notes.CONTENT_NOTE_URI, mWorkingNote.getNoteId()),

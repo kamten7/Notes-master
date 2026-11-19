@@ -97,6 +97,7 @@ public class NoteItemData {
         mType = cursor.getInt(TYPE_COLUMN);
         mWidgetId = cursor.getInt(WIDGET_ID_COLUMN);
         mWidgetType = cursor.getInt(WIDGET_TYPE_COLUMN);
+        // 用 >0 判断，兼容旧数据的默认值和以后可能出现的其它标记
         mLocked = cursor.getInt(IS_LOCKED_COLUMN) > 0;
         mTags = cursor.getString(TAGS_COLUMN);
         if (mTags == null) {

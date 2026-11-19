@@ -372,6 +372,9 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
      * Both columns have defaults so existing notes stay untouched.
      */
     private void upgradeToV5(SQLiteDatabase db) {
+        /*
+         * 用 ADD COLUMN 而不是重建表。两列都带默认值，升级后旧便签原样保留。
+         */
         db.execSQL("ALTER TABLE " + TABLE.NOTE + " ADD COLUMN " + NoteColumns.IS_LOCKED
                 + " INTEGER NOT NULL DEFAULT 0");
         db.execSQL("ALTER TABLE " + TABLE.NOTE + " ADD COLUMN " + NoteColumns.TAGS

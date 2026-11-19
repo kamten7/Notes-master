@@ -38,6 +38,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
+/**
+ * 便签与便签内容的统一数据入口，把 URI 映射到 note、data 两张表。
+ * 删除和更新都要经过这里，系统目录（id<=0）的保护也集中在这一层处理。
+ */
 public class NotesProvider extends ContentProvider {
     private static final UriMatcher mMatcher;
 
@@ -192,10 +196,9 @@ public class NotesProvider extends ContentProvider {
         boolean deleteData = false;
         switch (mMatcher.match(uri)) {
             case URI_NOTE:
-                /**
-                 * Keep system folders (id <= 0) untouched. Build the condition
-                 * only when the caller really passed one, otherwise the plain
-                 * string concatenation would produce "(null) AND _id>0".
+                /*
+                 * 调用方不传条件时必须保留 _id>0。直接拼会得到 "(null) AND _id>0"，
+                 * SQLite 把 null 当成标识符，条件恒不成立，一条也删不掉。
                  */
                 String noteSelection;
                 if (TextUtils.isEmpty(selection)) {
@@ -285,10 +288,12 @@ public class NotesProvider extends ContentProvider {
     }
 
     /**
-     * Bump the version column of the affected notes.
-     * The condition is built as a real SQL fragment and every caller argument
-     * is passed through the SQLite binding array, so a value like "1 OR 1=1"
-     * can no longer be turned into SQL text.
+     * 递增受影响便签的版本号，供同步模块判断本地是否被改过。
+     * 条件用 ? 占位、参数经 whereArgs 绑定，不拼进 SQL 文本。
+     *
+     * @param id            大于 0 表示只处理这一条，否则按 selection 批量处理
+     * @param selection     附加筛选条件，可为 null
+     * @param selectionArgs 与 selection 中占位符对应的参数，可为 null
      */
     private void increaseNoteVersion(long id, String selection, String[] selectionArgs) {
         ArrayList<Object> whereArgs = new ArrayList<Object>();
