@@ -1,0 +1,46 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName Microsoft YaHei
+skinparam arrowColor #555555
+skinparam packageBorderColor #333333
+left to right direction
+title 图 1-1 小米便签体系结构包图（箭头由依赖方指向被依赖方）
+
+package "net.micode.notes.data" as net_micode_notes_data {
+}
+package "net.micode.notes.gtask.data" as net_micode_notes_gtask_data {
+}
+package "net.micode.notes.gtask.exception" as net_micode_notes_gtask_exception {
+}
+package "net.micode.notes.gtask.remote" as net_micode_notes_gtask_remote {
+}
+package "net.micode.notes.model" as net_micode_notes_model {
+}
+package "net.micode.notes.tool" as net_micode_notes_tool {
+}
+package "net.micode.notes.ui" as net_micode_notes_ui {
+}
+package "net.micode.notes.widget" as net_micode_notes_widget {
+}
+
+net_micode_notes_gtask_data --> net_micode_notes_data
+net_micode_notes_gtask_data --> net_micode_notes_gtask_exception
+net_micode_notes_gtask_data --> net_micode_notes_tool
+net_micode_notes_gtask_remote --> net_micode_notes_data
+net_micode_notes_gtask_remote --> net_micode_notes_gtask_data
+net_micode_notes_gtask_remote --> net_micode_notes_gtask_exception
+net_micode_notes_gtask_remote --> net_micode_notes_tool
+net_micode_notes_gtask_remote --> net_micode_notes_ui
+net_micode_notes_model --> net_micode_notes_data
+net_micode_notes_tool --> net_micode_notes_data
+net_micode_notes_tool --> net_micode_notes_ui
+net_micode_notes_ui --> net_micode_notes_data
+net_micode_notes_ui --> net_micode_notes_gtask_remote
+net_micode_notes_ui --> net_micode_notes_model
+net_micode_notes_ui --> net_micode_notes_tool
+net_micode_notes_ui --> net_micode_notes_widget
+net_micode_notes_widget --> net_micode_notes_data
+net_micode_notes_widget --> net_micode_notes_tool
+net_micode_notes_widget --> net_micode_notes_ui
+@enduml

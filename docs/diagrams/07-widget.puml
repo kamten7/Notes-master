@@ -1,0 +1,36 @@
+@startuml
+skinparam shadowing false
+skinparam defaultFontName Microsoft YaHei
+skinparam classAttributeIconSize 0
+set separator none
+skinparam classBorderColor #333333
+skinparam classBackgroundColor #FFFFFF
+title widget 包类图
+
+package "net.micode.notes.widget" {
+  class NoteWidgetProvider {
+    - COLUMN_ID: int
+    - COLUMN_BG_COLOR_ID: int
+    - COLUMN_SNIPPET: int
+    - TAG: String
+    + onDeleted(): void
+    + getNoteWidgetInfo(): Cursor
+    + update(): void
+  }
+  class NoteWidgetProvider_2x {
+    + onUpdate(): void
+    + getLayoutId(): int
+    + getBgResourceId(): int
+    + getWidgetType(): int
+  }
+  class NoteWidgetProvider_4x {
+    + onUpdate(): void
+    + getLayoutId(): int
+    + getBgResourceId(): int
+    + getWidgetType(): int
+  }
+}
+
+NoteWidgetProvider <|-- NoteWidgetProvider_2x
+NoteWidgetProvider <|-- NoteWidgetProvider_4x
+@enduml

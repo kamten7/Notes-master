@@ -1,0 +1,949 @@
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:88: Warning: This LinearLayout should use android:layout_height="wrap_content" [ScrollViewSize]
+                    android:layout_height="fill_parent">
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "ScrollViewSize":
+   ScrollView children must set their layout_width or layout_height attributes
+   to wrap_content rather than fill_parent or match_parent in the scrolling
+   dimension.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NoteEditActivity.java:455: Warning: Consider using apply() instead; commit writes its data to persistent storage immediately, whereas apply will handle it in the background [ApplySharedPref]
+            mSharedPrefs.edit().putInt(PREFERENCE_FONT_SIZE, mFontSizeId).commit();
+                                                                          ~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:211: Warning: Consider using apply() instead; commit writes its data to persistent storage immediately, whereas apply will handle it in the background [ApplySharedPref]
+                sp.edit().putBoolean(PREFERENCE_ADD_INTRODUCTION, true).commit();
+                                                                        ~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesPreferenceActivity.java:300: Warning: Consider using apply() instead; commit writes its data to persistent storage immediately, whereas apply will handle it in the background [ApplySharedPref]
+            editor.commit();
+                   ~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesPreferenceActivity.java:330: Warning: Consider using apply() instead; commit writes its data to persistent storage immediately, whereas apply will handle it in the background [ApplySharedPref]
+        editor.commit();
+               ~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesPreferenceActivity.java:354: Warning: Consider using apply() instead; commit writes its data to persistent storage immediately, whereas apply will handle it in the background [ApplySharedPref]
+        editor.commit();
+               ~~~~~~~~
+
+   Explanation for issues of type "ApplySharedPref":
+   Consider using apply() instead of commit on shared preferences. Whereas
+   commit blocks and writes its data to persistent storage immediately, apply
+   will handle it in the background.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\gtask\remote\GTaskClient.java:140: Warning: Implicitly using the default locale is a common source of bugs: Use toLowerCase(Locale) instead. For strings meant to be internal use Locale.ROOT, otherwise Locale.getDefault(). [DefaultLocale]
+        if (!(mAccount.name.toLowerCase().endsWith("gmail.com") || mAccount.name.toLowerCase()
+                            ~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\gtask\remote\GTaskClient.java:140: Warning: Implicitly using the default locale is a common source of bugs: Use toLowerCase(Locale) instead. For strings meant to be internal use Locale.ROOT, otherwise Locale.getDefault(). [DefaultLocale]
+        if (!(mAccount.name.toLowerCase().endsWith("gmail.com") || mAccount.name.toLowerCase()
+                                                                                 ~~~~~~~~~~~
+
+   Explanation for issues of type "DefaultLocale":
+   Calling String#toLowerCase() or #toUpperCase() without specifying an
+   explicit locale is a common source of bugs. The reason for that is that
+   those methods will use the current locale on the user's device, and even
+   though the code appears to work correctly when you are developing the app,
+   it will fail in some locales. For example, in the Turkish locale, the
+   uppercase replacement for i is not I.
+
+   If you want the methods to just perform ASCII replacement, for example to
+   convert an enum name, call String#toUpperCase(Locale.ROOT) instead. If you
+   really want to use the current locale, call
+   String#toUpperCase(Locale.getDefault()) instead.
+
+   https://developer.android.com/reference/java/util/Locale.html#default_locale
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\gtask\remote\GTaskASyncTask.java:107: Error: Call requires API level 16 (current min is 14): android.app.Notification.Builder#build [NewApi]
+        return builder.build();
+                       ~~~~~
+
+   Explanation for issues of type "NewApi":
+   This check scans through all the Android API calls in the application and
+   warns about any calls that are not available on all versions targeted by
+   this application (according to its minimum SDK attribute in the manifest).
+
+   If you really want to use this API and don't need to support older devices
+   just set the minSdkVersion in your build.gradle or AndroidManifest.xml
+   files.
+
+   If your code is deliberately accessing newer APIs, and you have ensured
+   (e.g. with conditional execution) that this code will only ever be called
+   on a supported platform, then you can annotate your class or method with
+   the @TargetApi annotation specifying the local minimum SDK to apply, such
+   as @TargetApi(11), such that this check considers 11 rather than your
+   manifest file's minimum SDK as the required API level.
+
+   If you are deliberately setting android: attributes in style definitions,
+   make sure you place this in a values-vNN folder in order to avoid running
+   into runtime conflicts on certain devices where manufacturers have added
+   custom attributes whose ids conflict with the new ones on later platforms.
+
+   Similarly, you can use tools:targetApi="11" in an XML file to indicate that
+   the element will only be inflated in an adequate context.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NoteEditActivity.java:446: Error: Must be one of: View.VISIBLE, View.INVISIBLE, View.GONE [WrongConstant]
+                    -                    View.VISIBLE);
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "WrongConstant":
+   Ensures that when parameter in a method only allows a specific set of
+   constants, calls obey those rules.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\AndroidManifest.xml:57: Error: Missing URL [AppLinkUrlError]
+            <intent-filter>
+            ^
+
+   Explanation for issues of type "AppLinkUrlError":
+   Ensure your intent filter has the documented elements for deep links, web
+   links, or Android App Links.
+
+   https://developer.android.com/training/app-links
+   https://g.co/AppIndexing/AndroidStudio
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NoteEditActivity.java:752: Warning: Avoid passing null as the view root (needed to resolve layout parameters on the inflated layout's root element) [InflateParams]
+        View view = LayoutInflater.from(this).inflate(R.layout.note_edit_list_item, null);
+                                                                                    ~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:230: Warning: Avoid passing null as the view root (needed to resolve layout parameters on the inflated layout's root element) [InflateParams]
+        mNotesListView.addFooterView(LayoutInflater.from(this).inflate(R.layout.note_list_footer, null),
+                                                                                                  ~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:269: Warning: Avoid passing null as the view root (needed to resolve layout parameters on the inflated layout's root element) [InflateParams]
+                    R.layout.note_list_dropdown_menu, null);
+                                                      ~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesPreferenceActivity.java:87: Warning: Avoid passing null as the view root (needed to resolve layout parameters on the inflated layout's root element) [InflateParams]
+        View header = LayoutInflater.from(this).inflate(R.layout.settings_header, null);
+                                                                                  ~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesPreferenceActivity.java:204: Warning: Avoid passing null as the view root (needed to resolve layout parameters on the inflated layout's root element) [InflateParams]
+        View titleView = LayoutInflater.from(this).inflate(R.layout.account_dialog_title, null);
+                                                                                          ~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesPreferenceActivity.java:260: Warning: Avoid passing null as the view root (needed to resolve layout parameters on the inflated layout's root element) [InflateParams]
+        View titleView = LayoutInflater.from(this).inflate(R.layout.account_dialog_title, null);
+                                                                                          ~~~~
+
+   Explanation for issues of type "InflateParams":
+   When inflating a layout, avoid passing in null as the parent view, since
+   otherwise any layout parameters on the root of the inflated layout will be
+   ignored.
+
+   https://www.bignerdranch.com/blog/understanding-androids-layoutinflater-inflate/
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NoteEditActivity.java:528: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_new_note:
+                 ~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NoteEditActivity.java:531: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_delete:
+                 ~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NoteEditActivity.java:546: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_font_size:
+                 ~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NoteEditActivity.java:550: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_list_mode:
+                 ~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NoteEditActivity.java:554: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_share:
+                 ~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NoteEditActivity.java:558: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_send_to_desktop:
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NoteEditActivity.java:561: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_alert:
+                 ~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NoteEditActivity.java:564: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_delete_remind:
+                 ~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NoteEditActivity.java:567: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_lock:
+                 ~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NoteEditActivity.java:570: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_set_tags:
+                 ~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:336: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+                case R.id.delete:
+                     ~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:352: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+                case R.id.move:
+                     ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:583: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.btn_new_note:
+                 ~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:805: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_new_folder: {
+                 ~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:809: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_export_text: {
+                 ~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:813: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_sync: {
+                 ~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:825: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_setting: {
+                 ~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:829: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_new_note: {
+                 ~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:833: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_search:
+                 ~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:836: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_sort:
+                 ~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:839: Warning: Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements [NonConstantResourceId]
+            case R.id.menu_filter_tag:
+                 ~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "NonConstantResourceId":
+   Avoid the usage of resource IDs where constant expressions are required.
+
+   A future version of the Android Gradle Plugin will generate R classes with
+   non-constant IDs in order to improve the performance of incremental
+   compilation.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\AndroidManifest.xml:39: Warning: Redundant label can be removed [RedundantLabel]
+            android:label="@string/app_name"
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\AndroidManifest.xml:127: Warning: Redundant label can be removed [RedundantLabel]
+            android:label="@string/app_name"
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "RedundantLabel":
+   When an activity does not have a label attribute, it will use the one from
+   the application tag. Since the application has already specified the same
+   label, the label on this activity can be omitted.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesPreferenceActivity.java:84: Warning: mReceiver is missing RECEIVER_EXPORTED or RECEIVER_NOT_EXPORTED flag for unprotected broadcasts registered for net.micode.notes.gtask.remote.gtask_sync_service [UnspecifiedRegisterReceiverFlag]
+        registerReceiver(mReceiver, filter);
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "UnspecifiedRegisterReceiverFlag":
+   In Android U, all receivers registering for non-system broadcasts are
+   required to include a flag indicating the receiver's exported state. Apps
+   registering for non-system broadcasts should use the
+   ContextCompat#registerReceiver APIs with flags set to either
+   RECEIVER_EXPORTED or RECEIVER_NOT_EXPORTED.
+
+   If you are not expecting broadcasts from other apps on the device, register
+   your receiver with RECEIVER_NOT_EXPORTED to protect your receiver on all
+   platform releases.
+
+   https://developer.android.com/reference/androidx/core/content/ContextCompat#registerReceiver(android.content.Context,android.content.BroadcastReceiver,android.content.IntentFilter,int)
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:86: Error: Wrong orientation? No orientation specified, and the default is horizontal, yet this layout has multiple children where at least one has layout_width="match_parent" [Orientation]
+                <LinearLayout
+                 ~~~~~~~~~~~~
+
+   Explanation for issues of type "Orientation":
+   The default orientation of a LinearLayout is horizontal. It's pretty easy
+   to believe that the layout is vertical, add multiple children to it, and
+   wonder why only the first child is visible (when the subsequent children
+   are off screen to the right). This lint rule helps pinpoint this issue by
+   warning whenever a LinearLayout is used with an implicit orientation and
+   multiple children.
+
+   It also checks for empty LinearLayouts without an orientation attribute
+   that also defines an id attribute. This catches the scenarios where
+   children will be added to the LinearLayout dynamically. 
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:39: Error: "file_path" is not translated in "zh" (Chinese) [MissingTranslation]
+    <string name="file_path">/MIUI/notes/</string>
+            ~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:40: Error: "file_name_txt_format" is not translated in "zh" (Chinese) [MissingTranslation]
+    <string name="file_name_txt_format">notes_%s.txt</string>
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:42: Error: "format_folder_files_count" is not translated in "zh" (Chinese) [MissingTranslation]
+    <string name="format_folder_files_count">(%d)</string>
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:104: Error: "preferences_last_sync_time_format" is not translated in "zh" (Chinese) [MissingTranslation]
+    <string name="preferences_last_sync_time_format">yyyy-MM-dd hh:mm:ss</string>
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "MissingTranslation":
+   If an application has more than one locale, then all the strings declared
+   in one language should also be translated in all other languages.
+
+   If the string should not be translated, you can add the attribute
+   translatable="false" on the <string> element, or you can define all your
+   non-translatable strings in a resource file called donottranslate.xml. Or,
+   you can ignore the issue with a tools:ignore="MissingTranslation"
+   attribute.
+
+   You can tell lint (and other tools) which language is the default language
+   in your res/values/ folder by specifying tools:locale="languageCode" for
+   the root <resources> element in your resource file. (The tools prefix
+   refers to the namespace declaration http://schemas.android.com/tools.)
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:51: Warning: Formatting %d followed by words ("selected"): This should probably be a plural rather than a string [PluralsCandidate]
+    <string name="menu_select_title">%d selected</string>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:75: Warning: Formatting %d followed by words ("notes"): This should probably be a plural rather than a string [PluralsCandidate]
+    <string name="alert_message_delete_notes">Confirm to delete the selected %d notes?</string>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:77: Warning: Formatting %d followed by words ("notes"): This should probably be a plural rather than a string [PluralsCandidate]
+    <string name="format_move_notes_to_folder">Have moved selected %1$d notes to %2$s folder</string>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "PluralsCandidate":
+   This lint check looks for potential errors in internationalization where
+   you have translated a message which involves a quantity and it looks like
+   other parts of the string may need grammatical changes.
+
+   For example, rather than something like this:
+     <string name="try_again">Try again in %d seconds.</string>
+   you should be using a plural:
+      <plurals name="try_again">
+           <item quantity="one">Try again in %d second</item>
+           <item quantity="other">Try again in %d seconds</item>
+       </plurals>
+   This will ensure that in other languages the right set of translations are
+   provided for the different quantity classes.
+
+   (This check depends on some heuristics, so it may not accurately determine
+   whether a string really should be a quantity. You can use tools:ignore to
+   filter out false positives.
+
+   https://developer.android.com/guide/topics/resources/string-resource.html#Plurals
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\AlarmInitReceiver.java:42: Warning: This broadcast receiver declares an intent-filter for a protected broadcast action string, which can only be sent by the system, not third-party applications. However, the receiver's onReceive method does not appear to call getAction to ensure that the received Intent's action string matches the expected value, potentially making it possible for another actor to send a spoofed intent with no action string or a different action string and cause undesired behavior. [UnsafeProtectedBroadcastReceiver]
+    public void onReceive(Context context, Intent intent) {
+                ~~~~~~~~~
+
+   Explanation for issues of type "UnsafeProtectedBroadcastReceiver":
+   `BroadcastReceiver`s that declare an intent-filter for a
+   protected-broadcast action string must check that the received intent's
+   action string matches the expected value, otherwise it is possible for
+   malicious actors to spoof intents.
+
+   https://goo.gle/UnsafeProtectedBroadcastReceiver
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\AndroidManifest.xml:81: Warning: Exported content providers can provide access to potentially sensitive data [ExportedContentProvider]
+        <provider
+         ~~~~~~~~
+
+   Explanation for issues of type "ExportedContentProvider":
+   Content providers are exported by default and any application on the system
+   can potentially use them to read and write data. If the content provider
+   provides access to sensitive data, it should be protected by specifying
+   export=false in the manifest or by protecting it with a permission that can
+   be granted to other applications.
+
+   https://goo.gle/ExportedContentProvider
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\AndroidManifest.xml:36: Warning: As of Android 12, android:exported must be set; use true to make the activity available to other apps, and false otherwise. For launcher activities, this should be set to true. [IntentFilterExportedReceiver]
+        <activity
+         ~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\AndroidManifest.xml:51: Warning: As of Android 12, android:exported must be set; use true to make the activity available to other apps, and false otherwise. [IntentFilterExportedReceiver]
+        <activity
+         ~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\AndroidManifest.xml:86: Warning: As of Android 12, android:exported must be set; use true to make the activity available to other apps, and false otherwise. [IntentFilterExportedReceiver]
+        <receiver
+         ~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\AndroidManifest.xml:99: Warning: As of Android 12, android:exported must be set; use true to make the activity available to other apps, and false otherwise. [IntentFilterExportedReceiver]
+        <receiver
+         ~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\AndroidManifest.xml:114: Warning: As of Android 12, android:exported must be set; use true to make the activity available to other apps, and false otherwise. [IntentFilterExportedReceiver]
+        <receiver android:name=".ui.AlarmInitReceiver" >
+         ~~~~~~~~
+
+   Explanation for issues of type "IntentFilterExportedReceiver":
+   Apps targeting Android 12 and higher are required to specify an explicit
+   value for android:exported when the corresponding component has an intent
+   filter defined. Otherwise, installation will fail. Set it to true to make
+   this activity accessible to other apps, and false to limit it to be used
+   only by this app or the OS. For launch activities, this should be set to
+   true; otherwise, the app will fail to launch.
+
+   Previously, android:exported for components without any intent filters
+   present used to default to false, and when intent filters were present, the
+   default was true. Defaults which change value based on other values are
+   confusing and lead to apps accidentally exporting components as a
+   side-effect of adding intent filters. This is a security risk, and we have
+   made this change to avoid introducing accidental vulnerabilities.
+
+   While the default without intent filters remains unchanged, it is now
+   required to explicitly specify a value when intent filters are present. Any
+   app failing to meet this requirement will fail to install on any Android
+   version after Android 11.
+
+   We recommend setting android:exported to false (even on previous versions
+   of Android prior to this requirement) unless you have a good reason to
+   export a particular component.
+
+   https://goo.gle/IntentFilterExportedReceiver
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\AlarmInitReceiver.java:56: Warning: Missing PendingIntent mutability flag [UnspecifiedImmutableFlag]
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, sender, 0);
+                                                                                                 ~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\gtask\remote\GTaskASyncTask.java:74: Warning: Missing PendingIntent mutability flag [UnspecifiedImmutableFlag]
+                    NotesPreferenceActivity.class), 0);
+                                                    ~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\gtask\remote\GTaskASyncTask.java:78: Warning: Missing PendingIntent mutability flag [UnspecifiedImmutableFlag]
+                    NotesListActivity.class), 0);
+                                              ~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NoteEditActivity.java:649: Warning: Missing PendingIntent mutability flag [UnspecifiedImmutableFlag]
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+                                                                                      ~
+
+   Explanation for issues of type "UnspecifiedImmutableFlag":
+   Apps targeting Android 12 and higher must specify either FLAG_IMMUTABLE or
+   FLAG_MUTABLE when constructing a PendingIntent.
+
+   FLAG_IMMUTABLE is available since target SDK 23, and is almost always the
+   best choice. See
+   https://developer.android.com/guide/components/intents-filters#CreateImmuta
+   blePendingIntents for a list of common exceptions to this rule.
+
+   https://developer.android.com/about/versions/12/behavior-changes-12#pending-intent-mutability
+   https://goo.gle/UnspecifiedImmutableFlag
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\gtask\remote\GTaskASyncTask.java:44: Warning: This field leaks a context object [StaticFieldLeak]
+    private Context mContext;
+    ~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\gtask\remote\GTaskManager.java:64: Warning: Do not place Android context classes in static fields (static reference to GTaskManager which has field mActivity pointing to Activity); this is a memory leak [StaticFieldLeak]
+    private static GTaskManager mInstance = null;
+            ~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\gtask\remote\GTaskSyncService.java:41: Warning: Do not place Android context classes in static fields (static reference to GTaskASyncTask which has field mContext pointing to Context); this is a memory leak [StaticFieldLeak]
+    private static GTaskASyncTask mSyncTask = null;
+            ~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:494: Warning: This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask) [StaticFieldLeak]
+        new AsyncTask<Void, Void, HashSet<AppWidgetAttribute>>() {
+        ^
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:931: Warning: This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask) [StaticFieldLeak]
+        new AsyncTask<Void, Void, Integer>() {
+        ^
+
+   Explanation for issues of type "StaticFieldLeak":
+   A static field will leak contexts.
+
+   Non-static inner classes have an implicit reference to their outer class.
+   If that outer class is for example a Fragment or Activity, then this
+   reference means that the long-running handler/loader/task will hold a
+   reference to the activity which prevents it from getting garbage
+   collected.
+
+   Similarly, direct field references to activities and fragments from these
+   longer running instances can cause leaks.
+
+   ViewModel classes should never point to Views or non-application Contexts.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:254: Warning: This tag and its children can be replaced by one <TextView/> and a compound drawable [UseCompoundDrawables]
+            <LinearLayout
+             ~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:292: Warning: This tag and its children can be replaced by one <TextView/> and a compound drawable [UseCompoundDrawables]
+            <LinearLayout
+             ~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:330: Warning: This tag and its children can be replaced by one <TextView/> and a compound drawable [UseCompoundDrawables]
+            <LinearLayout
+             ~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:368: Warning: This tag and its children can be replaced by one <TextView/> and a compound drawable [UseCompoundDrawables]
+            <LinearLayout
+             ~~~~~~~~~~~~
+
+   Explanation for issues of type "UseCompoundDrawables":
+   A LinearLayout which contains an ImageView and a TextView can be more
+   efficiently handled as a compound drawable (a single TextView, using the
+   drawableTop, drawableLeft, drawableRight and/or drawableBottom attributes
+   to draw one or more images adjacent to the text).
+
+   If the two widgets are offset from each other with margins, this can be
+   replaced with a drawablePadding attribute.
+
+   There's a lint quickfix to perform this conversion in the Eclipse plugin.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:441: Warning: This Handler class should be static or leaks might occur (net.micode.notes.ui.NotesListActivity.BackgroundQueryHandler) [HandlerLeak]
+    private final class BackgroundQueryHandler extends AsyncQueryHandler {
+                        ~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "HandlerLeak":
+   Since this Handler is declared as an inner class, it may prevent the outer
+   class from being garbage collected. If the Handler is using a Looper or
+   MessageQueue for a thread other than the main thread, then there is no
+   issue. If the Handler is using the Looper or MessageQueue of the main
+   thread, you need to fix your Handler declaration, as follows: Declare the
+   Handler as a static class; In the outer class, instantiate a WeakReference
+   to the outer class and pass this object to your Handler when you
+   instantiate the Handler; Make all references to members of the outer class
+   using the WeakReference object.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\gtask\remote\GTaskManager.java:610: Warning: Use Long.valueOf(Notes.ID_ROOT_FOLDER) instead [UseValueOf]
+                : new Long(Notes.ID_ROOT_FOLDER);
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "UseValueOf":
+   You should not call the constructor for wrapper classes directly, such
+   as`new Integer(42)`. Instead, call the valueOf factory method, such as
+   Integer.valueOf(42). This will typically use less memory because common
+   integers such as 0 and 1 will share a single instance.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:126: Warning: Set android:baselineAligned="false" on this element for better performance [DisableBaselineAlignment]
+    <LinearLayout
+     ~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:240: Warning: Set android:baselineAligned="false" on this element for better performance [DisableBaselineAlignment]
+    <LinearLayout
+     ~~~~~~~~~~~~
+
+   Explanation for issues of type "DisableBaselineAlignment":
+   When a LinearLayout is used to distribute the space proportionally between
+   nested layouts, the baseline alignment property should be turned off to
+   make the layout computation faster.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_item.xml:40: Warning: Nested weights are bad for performance [NestedWeights]
+                android:layout_weight="1"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "NestedWeights":
+   Layout weights require a widget to be measured twice. When a LinearLayout
+   with non-zero weights is nested inside another LinearLayout with non-zero
+   weights, then the number of measurements increase exponentially.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:21: Warning: Possible overdraw: Root element paints background @drawable/list_background with a theme that also paints a background (inferred theme is @style/NoteTheme) [Overdraw]
+    android:background="@drawable/list_background"
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_list.xml:22: Warning: Possible overdraw: Root element paints background @drawable/list_background with a theme that also paints a background (inferred theme is @style/NoteTheme) [Overdraw]
+    android:background="@drawable/list_background">
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "Overdraw":
+   If you set a background drawable on a root view, then you should use a
+   custom theme where the theme background is null. Otherwise, the theme
+   background will be painted first, only to have your custom background
+   completely cover it; this is called "overdraw".
+
+   NOTE: This detector relies on figuring out which layouts are associated
+   with which activities based on scanning the Java code, and it's currently
+   doing that using an inexact pattern matching algorithm. Therefore, it can
+   incorrectly conclude which activity the layout is associated with and then
+   wrongly complain that a background-theme is hidden.
+
+   If you want your custom background on multiple pages, then you should
+   consider making a custom theme with your custom background and just using
+   that theme instead of a root element background.
+
+   Of course it's possible that your custom drawable is translucent and you
+   want it to be mixed with the background. However, you will get better
+   performance if you pre-mix the background with your drawable and use that
+   resulting image or color as a custom theme background instead.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\arrays.xml:27: Warning: The resource R.array.menu_share_ways appears to be unused [UnusedResources]
+    <string-array name="menu_share_ways">
+                  ~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\drawable-hdpi\delete.png: Warning: The resource R.drawable.delete appears to be unused [UnusedResources]
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:27: Warning: The resource R.string.delete_remind_time_message appears to be unused [UnusedResources]
+    <string name="delete_remind_time_message">Delete reminder successfully</string>
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:28: Warning: The resource R.string.set_remind_time_message appears to be unused [UnusedResources]
+    <string name="set_remind_time_message">Set reminder</string>
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:119: Warning: The resource R.string.button_delete appears to be unused [UnusedResources]
+    <string name="button_delete">Delete</string>
+            ~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:126: Warning: The resource R.string.search appears to be unused [UnusedResources]
+    <string name="search">Notes</string>
+            ~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:129: Warning: The resource R.plurals.search_results_title appears to be unused [UnusedResources]
+    <plurals name="search_results_title">
+             ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\styles.xml:51: Warning: The resource R.style.HighlightTextAppearancePrimary appears to be unused [UnusedResources]
+    <style name="HighlightTextAppearancePrimary">
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\styles.xml:56: Warning: The resource R.style.HighlightTextAppearanceSecondary appears to be unused [UnusedResources]
+    <style name="HighlightTextAppearanceSecondary">
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "UnusedResources":
+   Unused resources make applications larger and slow down builds.
+
+
+   The unused resource check can ignore tests. If you want to include
+   resources that are only referenced from tests, consider packaging them in a
+   test source set instead.
+
+   You can include test sources in the unused resource check by setting the
+   system property lint.unused-resources.include-tests =true, and to exclude
+   them (usually for performance reasons), use
+   lint.unused-resources.exclude-tests =true.
+   ,
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values-zh-rCN\strings.xml:25: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="notelist_string_info">...</string>
+                                        ~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values-zh-rTW\strings.xml:25: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="notelist_string_info">...</string>
+                                        ~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:25: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="notelist_string_info">...</string>
+                                        ~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values-zh-rTW\strings.xml:83: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="ticker_syncing">同步便簽...</string>
+                                  ~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values-zh-rCN\strings.xml:84: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="ticker_syncing">同步便签...</string>
+                                  ~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:88: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="ticker_syncing">Syncing notes...</string>
+                                  ~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values-zh-rTW\strings.xml:91: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="sync_progress_login">登陸%1$s...</string>
+                                       ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values-zh-rCN\strings.xml:92: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="sync_progress_login">登录%1$s...</string>
+                                       ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values-zh-rTW\strings.xml:92: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="sync_progress_init_list">正在獲取服務器便籤列表...</string>
+                                           ~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values-zh-rCN\strings.xml:93: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="sync_progress_init_list">正在获取服务器便签列表...</string>
+                                           ~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values-zh-rTW\strings.xml:93: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="sync_progress_syncing">正在同步本地便籤...</string>
+                                         ~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values-zh-rCN\strings.xml:94: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="sync_progress_syncing">正在同步本地便签...</string>
+                                         ~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:96: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="sync_progress_login">Logging into %1$s...</string>
+                                       ~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:97: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="sync_progress_init_list">Getting remote note list...</string>
+                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:98: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="sync_progress_syncing">Synchronize local notes with Google Task...</string>
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "TypographyEllipsis":
+   You can replace the string "..." with a dedicated ellipsis character,
+   ellipsis character (u2026, &#8230;). This can help make the text more
+   readable.
+
+   https://en.wikipedia.org/wiki/Ellipsis
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res: Warning: Missing density variation folders in res: drawable-mdpi, drawable-xhdpi, drawable-xxhdpi [IconMissingDensityFolder]
+
+   Explanation for issues of type "IconMissingDensityFolder":
+   Icons will look best if a custom version is provided for each of the major
+   screen density classes (low, medium, high, extra-high, extra-extra-high).
+   This lint check identifies folders which are missing, such as
+   drawable-hdpi.
+
+   Low density is not really used much anymore, so this check ignores the ldpi
+   density. To force lint to include it, set the environment variable
+   ANDROID_LINT_INCLUDE_LDPI=true. For more information on current density
+   usage, see https://developer.android.com/about/dashboards
+
+   https://developer.android.com/guide/practices/screens_support.html
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\dialog_edit_text.xml:18: Warning: This text field does not specify an inputType [TextFields]
+<EditText
+ ~~~~~~~~
+
+   Explanation for issues of type "TextFields":
+   Providing an inputType attribute on a text field improves usability because
+   depending on the data to be input, optimized keyboards can be shown to the
+   user (such as just digits and parentheses for a phone number). 
+
+   The lint detector also looks at the id of the view, and if the id offers a
+   hint of the purpose of the field (for example, the id contains the phrase
+   phone or email), then lint will also ensure that the inputType contains the
+   corresponding type attributes.
+
+   If you really want to keep the text field generic, you can suppress this
+   warning by setting inputType="text".
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\menu\note_list_options.xml:24: Warning: Prefer "ifRoom" instead of "always" [AlwaysShowAction]
+        android:showAsAction="always|withText" />
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "AlwaysShowAction":
+   Using showAsAction="always" in menu XML, or MenuItem.SHOW_AS_ACTION_ALWAYS
+   in Java code is usually a deviation from the user interface style guide.Use
+   ifRoom or the corresponding MenuItem.SHOW_AS_ACTION_IF_ROOM instead.
+
+   If always is used sparingly there are usually no problems and behavior is
+   roughly equivalent to ifRoom but with preference over other ifRoom items.
+   Using it more than twice in the same menu is a bad idea.
+
+   This check looks for menu XML files that contain more than two always
+   actions, or some always actions and no ifRoom actions. In Java code, it
+   looks for projects that contain references to
+   MenuItem.SHOW_AS_ACTION_ALWAYS and no references to
+   MenuItem.SHOW_AS_ACTION_IF_ROOM.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\dialog_edit_text.xml:18: Warning: Missing autofillHints attribute [Autofill]
+<EditText
+ ~~~~~~~~
+
+   Explanation for issues of type "Autofill":
+   Specify an autofillHints attribute when targeting SDK version 26 or higher
+   or explicitly specify that the view is not important for autofill. Your app
+   can help an autofill service classify the data correctly by providing the
+   meaning of each view that could be autofillable, such as views representing
+   usernames, passwords, credit card fields, email addresses, etc.
+
+   The hints can have any value, but it is recommended to use predefined
+   values like 'username' for a username or 'creditCardNumber' for a credit
+   card number. For a list of all predefined autofill hint constants, see the
+   AUTOFILL_HINT_ constants in the View reference at
+   https://developer.android.com/reference/android/view/View.html.
+
+   You can mark a view unimportant for autofill by specifying an
+   importantForAutofill attribute on that view or a parent view. See
+   https://developer.android.com/reference/android/view/View.html#setImportant
+   ForAutofill(int).
+
+   https://developer.android.com/guide/topics/text/autofill.html
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\values\strings.xml:128: Warning: The standard Android way to capitalize cancel is "Cancel" (tip: use @android:string/cancel instead) [ButtonCase]
+    <string name="datetime_dialog_cancel">cancel</string>
+                                          ~~~~~~
+
+   Explanation for issues of type "ButtonCase":
+   The standard capitalization for OK/Cancel dialogs is "OK" and "Cancel". To
+   ensure that your dialogs use the standard strings, you can use the resource
+   strings @android:string/ok and @android:string/cancel.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NoteEditText.java:103: Warning: Custom view NoteEditText overrides onTouchEvent but not performClick [ClickableViewAccessibility]
+    public boolean onTouchEvent(MotionEvent event) {
+                   ~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:238: Warning: Custom view `Button` has setOnTouchListener called on it but does not override performClick [ClickableViewAccessibility]
+        mAddNewNote.setOnTouchListener(new NewNoteOnTouchListener());
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListActivity.java:364: Warning: NewNoteOnTouchListener#onTouch should call View#performClick when a click is detected [ClickableViewAccessibility]
+        public boolean onTouch(View v, MotionEvent event) {
+                       ~~~~~~~
+
+   Explanation for issues of type "ClickableViewAccessibility":
+   If a View that overrides onTouchEvent or uses an OnTouchListener does not
+   also implement performClick and call it when clicks are detected, the View
+   may not handle accessibility actions properly. Logic handling the click
+   actions should ideally be placed in View#performClick as some accessibility
+   services invoke performClick when a click action should occur.
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:43: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:59: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageButton
+             ~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:72: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:112: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:119: Warning: Missing contentDescription attribute on image [ContentDescription]
+    <ImageView
+     ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:141: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:146: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:162: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:167: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:183: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:188: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:204: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:209: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:224: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:229: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:261: Warning: Missing contentDescription attribute on image [ContentDescription]
+                <ImageView
+                 ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:274: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:299: Warning: Missing contentDescription attribute on image [ContentDescription]
+                <ImageView
+                 ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:312: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:337: Warning: Missing contentDescription attribute on image [ContentDescription]
+                <ImageView
+                 ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:350: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:375: Warning: Missing contentDescription attribute on image [ContentDescription]
+                <ImageView
+                 ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:388: Warning: Missing contentDescription attribute on image [ContentDescription]
+            <ImageView
+             ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_item.xml:73: Warning: Missing contentDescription attribute on image [ContentDescription]
+    <ImageView
+     ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\widget_2x.xml:22: Warning: Missing contentDescription attribute on image [ContentDescription]
+    <ImageView
+     ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\widget_4x.xml:23: Warning: Missing contentDescription attribute on image [ContentDescription]
+    <ImageView
+     ~~~~~~~~~
+
+   Explanation for issues of type "ContentDescription":
+   Non-textual widgets like ImageViews and ImageButtons should use the
+   contentDescription attribute to specify a textual description of the widget
+   such that screen readers and other accessibility tools can adequately
+   describe the user interface.
+
+   Note that elements in application screens that are purely decorative and do
+   not provide any content or enable a user action should not have
+   accessibility content descriptions. In this case, set their descriptions to
+   @null. If your app's minSdkVersion is 16 or higher, you can instead set
+   these graphical elements' android:importantForAccessibility attributes to
+   no.
+
+   Note that for text fields, you should not set both the hint and the
+   contentDescription attributes since the hint will never be shown. Just set
+   the hint.
+
+   https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListItem.java:65: Warning: Do not concatenate text displayed with setText. Use resource string with placeholders. [SetTextI18n]
+            mTitle.setText(context.getString(R.string.call_record_folder_name)
+                           ^
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\src\net\micode\notes\ui\NotesListItem.java:84: Warning: Do not concatenate text displayed with setText. Use resource string with placeholders. [SetTextI18n]
+                mTitle.setText(data.getSnippet()
+                               ^
+
+   Explanation for issues of type "SetTextI18n":
+   When calling TextView#setText
+   * Never call Number#toString() to format numbers; it will not handle
+   fraction separators and locale-specific digits properly. Consider using
+   String#format with proper format specifications (%d or %f) instead.
+   * Do not pass a string literal (e.g. "Hello") to display text. Hardcoded
+   text can not be properly translated to other languages. Consider using
+   Android resource strings instead.
+   * Do not build messages by concatenating text chunks. Such messages can not
+   be properly translated.
+
+   https://developer.android.com/guide/topics/resources/localization.html
+
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\datetime_picker.xml:34: Warning: Consider adding android:layout_marginStart="5dip" to better support right-to-left layouts [RtlHardcoded]
+        android:layout_marginLeft="5dip"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\datetime_picker.xml:43: Warning: Consider adding android:layout_marginStart="5dip" to better support right-to-left layouts [RtlHardcoded]
+        android:layout_marginLeft="5dip"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\datetime_picker.xml:52: Warning: Consider adding android:layout_marginStart="5dip" to better support right-to-left layouts [RtlHardcoded]
+        android:layout_marginLeft="5dip"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:39: Warning: Use "start" instead of "left" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+                android:layout_gravity="left|center_vertical"
+                                        ~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:40: Warning: Consider adding android:layout_marginEnd="8dip" to better support right-to-left layouts [RtlHardcoded]
+                android:layout_marginRight="8dip"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:55: Warning: Consider adding android:layout_marginStart="2dip" to better support right-to-left layouts [RtlHardcoded]
+                android:layout_marginLeft="2dip"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:56: Warning: Consider adding android:layout_marginEnd="8dip" to better support right-to-left layouts [RtlHardcoded]
+                android:layout_marginRight="8dip"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:83: Warning: Use "start" instead of "left" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+                android:layout_gravity="left|top"
+                                        ~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:94: Warning: Use "start" instead of "left" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+                        android:gravity="left|top"
+                                         ~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:107: Warning: Consider adding android:layout_marginStart="-10dip" to better support right-to-left layouts [RtlHardcoded]
+                        android:layout_marginLeft="-10dip"
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:124: Warning: Use "end" instead of "right" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+        android:layout_gravity="top|right" />
+                                ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:132: Warning: Consider adding android:layout_marginEnd="8dip" to better support right-to-left layouts [RtlHardcoded]
+        android:layout_marginRight="8dip"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:133: Warning: Use "end" instead of "right" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+        android:layout_gravity="top|right"
+                                ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:150: Warning: Use "end" instead of "right" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+                android:layout_gravity="bottom|right"
+                                        ~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:151: Warning: Consider adding android:layout_marginEnd="5dip" to better support right-to-left layouts [RtlHardcoded]
+                android:layout_marginRight="5dip"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:171: Warning: Use "end" instead of "right" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+                android:layout_gravity="bottom|right"
+                                        ~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:174: Warning: Consider adding android:layout_marginEnd="3dip" to better support right-to-left layouts [RtlHardcoded]
+                android:layout_marginRight="3dip"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:192: Warning: Use "end" instead of "right" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+                android:layout_gravity="bottom|right"
+                                        ~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:195: Warning: Consider adding android:layout_marginEnd="2dip" to better support right-to-left layouts [RtlHardcoded]
+                android:layout_marginRight="2dip"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:213: Warning: Use "end" instead of "right" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+                android:layout_gravity="bottom|right"
+                                        ~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:233: Warning: Use "end" instead of "right" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+                android:layout_gravity="bottom|right"
+                                        ~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:278: Warning: Use "end" instead of "right" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+                android:layout_gravity="bottom|right"
+                                        ~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:279: Warning: Consider adding android:layout_marginEnd="6dip" to better support right-to-left layouts [RtlHardcoded]
+                android:layout_marginRight="6dip"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:316: Warning: Use "end" instead of "right" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+                android:layout_gravity="bottom|right"
+                                        ~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:319: Warning: Consider adding android:layout_marginEnd="6dip" to better support right-to-left layouts [RtlHardcoded]
+                android:layout_marginRight="6dip"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:354: Warning: Use "end" instead of "right" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+                android:layout_gravity="bottom|right"
+                                        ~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:357: Warning: Consider adding android:layout_marginEnd="6dip" to better support right-to-left layouts [RtlHardcoded]
+                android:layout_marginRight="6dip"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:392: Warning: Use "end" instead of "right" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+                android:layout_gravity="bottom|right"
+                                        ~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit.xml:395: Warning: Consider adding android:layout_marginEnd="6dip" to better support right-to-left layouts [RtlHardcoded]
+                android:layout_marginRight="6dip"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_edit_list_item.xml:29: Warning: Use "start" instead of "left" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+        android:layout_gravity="top|left" />
+                                ~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_item.xml:77: Warning: Use "end" instead of "right" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+        android:layout_gravity="top|right"/>
+                                ~~~~~~~~~
+C:\Users\l\AppData\Local\Temp\wblab\Notes-lint\res\layout\note_list_dropdown_menu.xml:28: Warning: Use "start" instead of "left" to ensure correct behavior in right-to-left locales [RtlHardcoded]
+            android:gravity="left|center_vertical"
+                             ~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "RtlHardcoded":
+   Using Gravity#LEFT and Gravity#RIGHT can lead to problems when a layout is
+   rendered in locales where text flows from right to left. Use Gravity#START
+   and Gravity#END instead. Similarly, in XML gravity and layout_gravity
+   attributes, use start rather than left.
+
+   For XML attributes such as paddingLeft and layout_marginLeft, use
+   paddingStart and layout_marginStart. NOTE: If your minSdkVersion is less
+   than 17, you should add both the older left/right attributes as well as the
+   new start/end attributes. On older platforms, where RTL is not supported
+   and the start/end attributes are unknown and therefore ignored, you need
+   the older left/right attributes. There is a separate lint check which
+   catches that type of error.
+
+   (Note: For Gravity#LEFT and Gravity#START, you can use these constants even
+   when targeting older platforms, because the start bitmask is a superset of
+   the left bitmask. Therefore, you can use gravity="start" rather than
+   gravity="left|start".)
+
+8 errors, 160 warnings

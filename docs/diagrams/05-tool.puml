@@ -1,0 +1,56 @@
+@startuml
+skinparam shadowing false
+skinparam defaultFontName Microsoft YaHei
+skinparam classAttributeIconSize 0
+set separator none
+skinparam classBorderColor #333333
+skinparam classBackgroundColor #FFFFFF
+title tool 包类图
+
+package "net.micode.notes.tool" {
+  class BackupUtils {
+    - TAG: String
+    - sInstance: BackupUtils
+    - STATE_SD_CARD_UNMOUONTED: int
+    - STATE_BACKUP_FILE_NOT_EXIST: int
+    - STATE_DATA_DESTROIED: int
+    - STATE_SYSTEM_ERROR: int
+    - STATE_SUCCESS: int
+    - ... 另 1 个
+    + getInstance(): BackupUtils
+    + BackupUtils()
+    + externalStorageAvailable(): boolean
+    + exportToText(): int
+    + getExportedTextFileName(): String
+    + getExportedTextFileDir(): String
+    + generateFileMountedOnSDcard(): File
+  }
+  class DataUtils {
+    - TAG: String
+    + batchDeleteNotes(): boolean
+    + moveNoteToFoler(): void
+  }
+  class GTaskStringUtils {
+    - GTASK_JSON_ACTION_ID: String
+    - GTASK_JSON_ACTION_LIST: String
+    - GTASK_JSON_ACTION_TYPE: String
+    - GTASK_JSON_ACTION_TYPE_CREATE: String
+    - GTASK_JSON_ACTION_TYPE_GETALL: String
+    - GTASK_JSON_ACTION_TYPE_MOVE: String
+    - GTASK_JSON_ACTION_TYPE_UPDATE: String
+    - ... 另 39 个
+  }
+  class ResourceParser {
+    - YELLOW: int
+    - BLUE: int
+    - WHITE: int
+    - GREEN: int
+    - RED: int
+    - BG_DEFAULT_COLOR: int
+    - TEXT_SMALL: int
+    - ... 另 4 个
+    + getDefaultBgId(): int
+  }
+}
+
+@enduml

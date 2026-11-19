@@ -1,0 +1,193 @@
+@startuml
+skinparam shadowing false
+skinparam defaultFontName Microsoft YaHei
+skinparam classAttributeIconSize 0
+set separator none
+skinparam classBorderColor #333333
+skinparam classBackgroundColor #FFFFFF
+title gtask 包类图
+
+package "net.micode.notes.gtask.data" {
+  class MetaData {
+    - TAG: String
+    - mRelatedGid: String
+    + setMeta(): void
+    + getRelatedGid(): String
+    + isWorthSaving(): boolean
+    + setContentByRemoteJSON(): void
+    + setContentByLocalJSON(): void
+    + getLocalJSONFromContent(): JSONObject
+    + getSyncAction(): int
+  }
+  class Node {
+    - SYNC_ACTION_NONE: int
+    - SYNC_ACTION_ADD_REMOTE: int
+    - SYNC_ACTION_ADD_LOCAL: int
+    - SYNC_ACTION_DEL_REMOTE: int
+    - SYNC_ACTION_DEL_LOCAL: int
+    - SYNC_ACTION_UPDATE_REMOTE: int
+    - SYNC_ACTION_UPDATE_LOCAL: int
+    - ... 另 6 个
+    + Node()
+    + setGid(): void
+    + setName(): void
+    + setLastModified(): void
+    + setDeleted(): void
+    + getGid(): String
+    + getName(): String
+    + getLastModified(): long
+    + ... 另 1 个
+  }
+  class SqlData {
+    - TAG: String
+    - INVALID_ID: int
+    - PROJECTION_DATA: String[]
+    - DATA_ID_COLUMN: int
+    - DATA_MIME_TYPE_COLUMN: int
+    - DATA_CONTENT_COLUMN: int
+    - DATA_CONTENT_DATA_1_COLUMN: int
+    - ... 另 9 个
+    + SqlData()
+    + SqlData()
+    + loadFromCursor(): void
+    + commit(): void
+    + getId(): long
+  }
+  class SqlNote {
+    - TAG: String
+    - INVALID_ID: int
+    - PROJECTION_NOTE: String[]
+    - ID_COLUMN: int
+    - ALERTED_DATE_COLUMN: int
+    - BG_COLOR_ID_COLUMN: int
+    - CREATED_DATE_COLUMN: int
+    - ... 另 31 个
+    + SqlNote()
+    + SqlNote()
+    + SqlNote()
+    + loadFromCursor(): void
+    + loadFromCursor(): void
+    + loadDataContent(): void
+    + setContent(): boolean
+    + getContent(): JSONObject
+    + ... 另 9 个
+  }
+  class Task {
+    - TAG: String
+    - mCompleted: boolean
+    - mNotes: String
+    - mMetaInfo: JSONObject
+    - mPriorSibling: Task
+    - mParent: TaskList
+    + Task()
+    + getCreateAction(): JSONObject
+    + getUpdateAction(): JSONObject
+    + setContentByRemoteJSON(): void
+    + setContentByLocalJSON(): void
+    + getLocalJSONFromContent(): JSONObject
+    + setMetaInfo(): void
+    + getSyncAction(): int
+    + ... 另 9 个
+  }
+  class TaskList {
+    - TAG: String
+    - mIndex: int
+    - mChildren: ArrayList<Task>
+    + TaskList()
+    + getCreateAction(): JSONObject
+    + getUpdateAction(): JSONObject
+    + setContentByRemoteJSON(): void
+    + setContentByLocalJSON(): void
+    + getLocalJSONFromContent(): JSONObject
+    + getSyncAction(): int
+    + getChildTaskCount(): int
+    + ... 另 11 个
+  }
+}
+package "net.micode.notes.gtask.exception" {
+  class ActionFailureException {
+    - serialVersionUID: long
+    + ActionFailureException()
+    + ActionFailureException()
+    + ActionFailureException()
+  }
+  class NetworkFailureException {
+    - serialVersionUID: long
+    + NetworkFailureException()
+    + NetworkFailureException()
+    + NetworkFailureException()
+  }
+}
+package "net.micode.notes.gtask.remote" {
+  class GTaskASyncTask {
+    - GTASK_SYNC_NOTIFICATION_ID: int
+    - CHANNEL_ID: String
+    - mContext: Context
+    - mNotifiManager: NotificationManager
+    - mTaskManager: GTaskManager
+    - mOnCompleteListener: OnCompleteListener
+    + GTaskASyncTask()
+    + cancelSync(): void
+    + publishProgess(): void
+    + showNotification(): void
+    + doInBackground(): Integer
+    + onProgressUpdate(): void
+    + onPostExecute(): void
+  }
+  class GTaskClient {
+    - TAG: String
+    - GTASK_URL: String
+    - GTASK_GET_URL: String
+    - GTASK_POST_URL: String
+    - mInstance: GTaskClient
+    - mHttpClient: DefaultHttpClient
+    - mGetUrl: String
+    - ... 另 7 个
+    + GTaskClient()
+    + getInstance(): GTaskClient
+    + login(): boolean
+    + loginGoogleAccount(): String
+    + tryToLoginGtask(): boolean
+    + loginGtask(): boolean
+  }
+  class GTaskManager {
+    - TAG: String
+    - STATE_SUCCESS: int
+    - STATE_NETWORK_ERROR: int
+    - STATE_INTERNAL_ERROR: int
+    - STATE_SYNC_IN_PROGRESS: int
+    - STATE_SYNC_CANCELLED: int
+    - mInstance: GTaskManager
+    - ... 另 7 个
+    + GTaskManager()
+    + getInstance(): GTaskManager
+    + setActivityContext(): void
+    + sync(): int
+    + getSyncAccount(): String
+    + cancelSync(): void
+  }
+  class GTaskSyncService {
+    - ACTION_STRING_NAME: String
+    - ACTION_START_SYNC: int
+    - ACTION_CANCEL_SYNC: int
+    - ACTION_INVALID: int
+    - GTASK_SERVICE_BROADCAST_NAME: String
+    - GTASK_SERVICE_BROADCAST_IS_SYNCING: String
+    - GTASK_SERVICE_BROADCAST_PROGRESS_MSG: String
+    - ... 另 2 个
+    + startSync(): void
+    + cancelSync(): void
+    + onCreate(): void
+    + onStartCommand(): int
+    + onLowMemory(): void
+    + onBind(): IBinder
+    + sendBroadcast(): void
+    + startSync(): void
+    + ... 另 3 个
+  }
+}
+
+Task <|-- MetaData
+Node <|-- Task
+Node <|-- TaskList
+@enduml

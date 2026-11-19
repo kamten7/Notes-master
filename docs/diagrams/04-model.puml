@@ -1,0 +1,46 @@
+@startuml
+skinparam shadowing false
+skinparam defaultFontName Microsoft YaHei
+skinparam classAttributeIconSize 0
+set separator none
+skinparam classBorderColor #333333
+skinparam classBackgroundColor #FFFFFF
+title model 包类图
+
+package "net.micode.notes.model" {
+  class Note {
+    - mNoteDiffValues: ContentValues
+    - mNoteData: NoteData
+    - TAG: String
+    + getNewNoteId(): long
+    + Note()
+    + setNoteValue(): void
+    + setTextData(): void
+    + setTextDataId(): void
+    + getTextDataId(): long
+    + setCallDataId(): void
+    + setCallData(): void
+    + ... 另 2 个
+  }
+  class WorkingNote {
+    - mNote: Note
+    - mNoteId: long
+    - mContent: String
+    - mMode: int
+    - mAlertDate: long
+    - mModifiedDate: long
+    - mBgColorId: int
+    - ... 另 19 个
+    + WorkingNote()
+    + WorkingNote()
+    + loadNote(): void
+    + loadNoteData(): void
+    + load(): WorkingNote
+    + saveNote(): boolean
+    + existInDatabase(): boolean
+    + isWorthSaving(): boolean
+    + ... 另 21 个
+  }
+}
+
+@enduml

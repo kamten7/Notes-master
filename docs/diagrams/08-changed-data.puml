@@ -1,0 +1,64 @@
+@startuml
+skinparam shadowing false
+skinparam defaultFontName Microsoft YaHei
+skinparam classAttributeIconSize 0
+set separator none
+skinparam classBorderColor #333333
+skinparam classBackgroundColor #FFFFFF
+title 图 4-1 data 包维护后类图（红色为本次改动）
+
+package "net.micode.notes.data" {
+  class Contact {
+    - TAG: String
+    - CALLER_ID_SELECTION: String
+    + getContact(): String
+  }
+  class Notes #FFE0E0 ##C00000 {
+    - AUTHORITY: String
+    - TAG: String
+    - TYPE_NOTE: int
+    - TYPE_FOLDER: int
+    - TYPE_SYSTEM: int
+    - ID_ROOT_FOLDER: int
+    - ID_TEMPARAY_FOLDER: int
+    - ... 另 13 个
+  }
+  class NotesDatabaseHelper #FFE0E0 ##C00000 {
+    - DB_NAME: String
+    - DB_VERSION: int
+    - TAG: String
+    - mInstance: NotesDatabaseHelper
+    - CREATE_NOTE_TABLE_SQL: String
+    - CREATE_DATA_TABLE_SQL: String
+    - CREATE_DATA_NOTE_ID_INDEX_SQL: String
+    - ... 另 10 个
+    + NotesDatabaseHelper()
+    + createNoteTable(): void
+    + reCreateNoteTableTriggers(): void
+    + createSystemFolder(): void
+    + createDataTable(): void
+    + reCreateDataTableTriggers(): void
+    + getInstance(): NotesDatabaseHelper
+    + onCreate(): void
+    + ... 另 5 个
+  }
+  class NotesProvider #FFE0E0 ##C00000 {
+    - mMatcher: UriMatcher
+    - mHelper: NotesDatabaseHelper
+    - TAG: String
+    - URI_NOTE: int
+    - URI_NOTE_ITEM: int
+    - URI_DATA: int
+    - URI_DATA_ITEM: int
+    - ... 另 4 个
+    + onCreate(): boolean
+    + insert(): Uri
+    + delete(): int
+    + update(): int
+    + parseSelection(): String
+    + increaseNoteVersion(): void
+    + getType(): String
+  }
+}
+
+@enduml

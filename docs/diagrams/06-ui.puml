@@ -1,0 +1,202 @@
+@startuml
+skinparam shadowing false
+skinparam defaultFontName Microsoft YaHei
+skinparam classAttributeIconSize 0
+set separator none
+skinparam classBorderColor #333333
+skinparam classBackgroundColor #FFFFFF
+title ui 包类图
+
+package "net.micode.notes.ui" {
+  class AlarmAlertActivity {
+    - mNoteId: long
+    - mSnippet: String
+    - SNIPPET_PREW_MAX_LEN: int
+    + onCreate(): void
+    + isScreenOn(): boolean
+    + playAlarmSound(): void
+    + showActionDialog(): void
+    + onClick(): void
+    + onDismiss(): void
+    + stopAlarmSound(): void
+  }
+  class AlarmInitReceiver {
+    - COLUMN_ID: int
+    - COLUMN_ALERTED_DATE: int
+    + onReceive(): void
+  }
+  class AlarmReceiver {
+    + onReceive(): void
+  }
+  class DateTimePicker {
+    - DEFAULT_ENABLE_STATE: boolean
+    - HOURS_IN_HALF_DAY: int
+    - HOURS_IN_ALL_DAY: int
+    - DAYS_IN_ALL_WEEK: int
+    - DATE_SPINNER_MIN_VAL: int
+    - DATE_SPINNER_MAX_VAL: int
+    - HOUR_SPINNER_MIN_VAL_24_HOUR_VIEW: int
+    - ... 另 22 个
+    + DateTimePicker()
+    + DateTimePicker()
+    + DateTimePicker()
+    + setEnabled(): void
+    + isEnabled(): boolean
+    + getCurrentDateInTimeMillis(): long
+    + setCurrentDate(): void
+    + getCurrentYear(): int
+    + ... 另 17 个
+  }
+  class DateTimePickerDialog {
+    - mDate: Calendar
+    - mIs24HourView: boolean
+    - mOnDateTimeSetListener: OnDateTimeSetListener
+    - mDateTimePicker: DateTimePicker
+    + DateTimePickerDialog()
+    + set24HourView(): void
+    + setOnDateTimeSetListener(): void
+    + updateTitle(): void
+    + onClick(): void
+  }
+  class DropdownMenu {
+    - mButton: Button
+    - mPopupMenu: PopupMenu
+    - mMenu: Menu
+    + DropdownMenu()
+    + setOnDropdownMenuItemClickListener(): void
+    + findItem(): MenuItem
+    + setTitle(): void
+  }
+  class FoldersListAdapter {
+    - ID_COLUMN: int
+    - NAME_COLUMN: int
+    + FoldersListAdapter()
+    + newView(): View
+    + bindView(): void
+    + getFolderName(): String
+  }
+  class NoteEditActivity {
+    - TAG: String
+    - mNoteHeaderHolder: HeadViewHolder
+    - mHeadViewPanel: View
+    - mNoteBgColorSelector: View
+    - mFontSizeSelector: View
+    - mNoteEditor: EditText
+    - mNoteEditorPanel: View
+    - ... 另 12 个
+    + onCreate(): void
+    + onRestoreInstanceState(): void
+    + initActivityState(): boolean
+    + onResume(): void
+    + initNoteScreen(): void
+    + showAlertHeader(): void
+    + onNewIntent(): void
+    + onSaveInstanceState(): void
+    + ... 另 37 个
+  }
+  class NoteEditText {
+    - TAG: String
+    - mIndex: int
+    - mSelectionStartBeforeDelete: int
+    - SCHEME_TEL: String
+    - SCHEME_HTTP: String
+    - SCHEME_EMAIL: String
+    - mOnTextViewChangeListener: OnTextViewChangeListener
+    + NoteEditText()
+    + setIndex(): void
+    + setOnTextViewChangeListener(): void
+    + NoteEditText()
+    + NoteEditText()
+    + onTouchEvent(): boolean
+    + onKeyDown(): boolean
+    + onKeyUp(): boolean
+    + ... 另 2 个
+  }
+  class NoteItemData {
+    - ID_COLUMN: int
+    - ALERTED_DATE_COLUMN: int
+    - BG_COLOR_ID_COLUMN: int
+    - CREATED_DATE_COLUMN: int
+    - HAS_ATTACHMENT_COLUMN: int
+    - MODIFIED_DATE_COLUMN: int
+    - NOTES_COUNT_COLUMN: int
+    - ... 另 28 个
+    + NoteItemData()
+    + checkPostion(): void
+    + isOneFollowingFolder(): boolean
+    + isMultiFollowingFolder(): boolean
+    + isLast(): boolean
+    + getCallName(): String
+    + isFirst(): boolean
+    + isSingle(): boolean
+    + ... 另 18 个
+  }
+  class NotesListActivity {
+    - FOLDER_NOTE_LIST_QUERY_TOKEN: int
+    - FOLDER_LIST_QUERY_TOKEN: int
+    - MENU_FOLDER_DELETE: int
+    - MENU_FOLDER_VIEW: int
+    - MENU_FOLDER_CHANGE_NAME: int
+    - PREFERENCE_ADD_INTRODUCTION: String
+    - mState: ListEditState
+    - ... 另 21 个
+    + onCreate(): void
+    + onActivityResult(): void
+    + setAppInfoFromRawRes(): void
+    + onStart(): void
+    + initResources(): void
+    + startAsyncNotesListQuery(): void
+    + showFolderListMenu(): void
+    + createNewNote(): void
+    + ... 另 22 个
+  }
+  class NotesListAdapter {
+    - TAG: String
+    - mContext: Context
+    - mNotesCount: int
+    - mChoiceMode: boolean
+    + NotesListAdapter()
+    + newView(): View
+    + bindView(): void
+    + setCheckedItem(): void
+    + isInChoiceMode(): boolean
+    + setChoiceMode(): void
+    + selectAll(): void
+    + getSelectedItemIds(): HashSet<Long>
+    + ... 另 7 个
+  }
+  class NotesListItem {
+    - mAlert: ImageView
+    - mTitle: TextView
+    - mTime: TextView
+    - mCallName: TextView
+    - mItemData: NoteItemData
+    - mCheckBox: CheckBox
+    + NotesListItem()
+    + bind(): void
+    + buildTitleWithFlags(): CharSequence
+    + setBackground(): void
+    + getItemData(): NoteItemData
+  }
+  class NotesPreferenceActivity {
+    - PREFERENCE_NAME: String
+    - PREFERENCE_SYNC_ACCOUNT_NAME: String
+    - PREFERENCE_LAST_SYNC_TIME: String
+    - PREFERENCE_SET_BG_COLOR_KEY: String
+    - PREFERENCE_SYNC_ACCOUNT_KEY: String
+    - AUTHORITIES_FILTER_KEY: String
+    - mAccountCategory: PreferenceCategory
+    - ... 另 3 个
+    + onCreate(): void
+    + onResume(): void
+    + onDestroy(): void
+    + loadAccountPreference(): void
+    + loadSyncButton(): void
+    + refreshUI(): void
+    + showSelectAccountAlertDialog(): void
+    + showChangeAccountConfirmAlertDialog(): void
+    + ... 另 7 个
+  }
+}
+
+@enduml
