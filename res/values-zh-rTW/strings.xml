@@ -124,7 +124,6 @@
         <item quantity="other"><xliff:g id="NUMBER">%1$s</xliff:g> 條符合”<xliff:g id="SEARCH">%2$s</xliff:g>“的搜尋結果</item>
     </plurals>
 
-    <!-- Added by maintenance -->
     <string name="menu_lock_note">鎖定便籤</string>
     <string name="menu_unlock_note">解除鎖定</string>
     <string name="menu_set_tags">標籤</string>

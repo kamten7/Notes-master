@@ -123,7 +123,6 @@
         <item quantity="other"><xliff:g id="NUMBER">%1$s</xliff:g> 条符合“<xliff:g id="SEARCH">%2$s</xliff:g>”的搜索结果</item>
     </plurals>
 
-    <!-- Added by maintenance -->
     <string name="menu_lock_note">锁定便签</string>
     <string name="menu_unlock_note">解除锁定</string>
     <string name="menu_set_tags">标签</string>
