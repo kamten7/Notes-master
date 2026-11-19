@@ -6,3 +6,12 @@ build/
 captures/
 .externalNativeBuild/
 .cxx/
+
+# IDE / AI 助手产生的目录，不进入版本库
+.workbuddy/
+.github/
+.vscode/
+.cursor/
+.claude/
+.gemini/
+.codebuddy/
