@@ -61,6 +61,11 @@
   AndroidManifest.xml
   build.gradle / settings.gradle / gradle.properties / lint.xml
   docs/      开发记录与过程材料
+    docs/report/     第 1~4 章正文草稿（分章，表号与模板不一致，以终版为准）
+    docs/diagrams/   UML 图（puml 源与 png），由 tools/gen_uml.py 生成
+    docs/lint/       Android Lint 原始报告
+    docs/shots/      模拟器实测截图
+  tools/     代码规模统计与出图脚本（只读源码）
 
 六、原始开源声明
   1. MiCode 便签是小米便签的社区开源版，由 MIUI 团队发起并贡献第一批代码，
