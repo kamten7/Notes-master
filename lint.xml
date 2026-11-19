@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <!-- targetSdk 28 为课程实验范围，上架前需完整适配新版 Android。 -->
+    <issue id="ExpiredTargetSdkVersion" severity="ignore" />
+</lint>

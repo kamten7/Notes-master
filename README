@@ -1,0 +1,68 @@
+[小米便签维护版 · 软件工程课程实验]
+
+一、工程来源
+  基线为 MiCode 社区开源版小米便签（Apache License 2.0，见 NOTICE），
+  原始源码位于 D:\cxdownload\源程序代码-小米便签-Notes-master\Notes-master。
+  本工程在原始源码基础上补充 Gradle 构建配置，并完成课程实验要求的
+  纠正性维护与改善性维护，原始代码结构与包划分保持不变。
+
+二、运行环境（本机实测）
+  JDK            21.0.11（JAVA_HOME 指向 D:\Java_JDK\jdk-21.0.11）
+  Gradle         8.9（使用工程内 wrapper，发行包走腾讯云镜像）
+  Android Gradle Plugin  8.7.3
+  Android SDK    Platform 35、Build Tools 36.0.0
+  minSdk 14 / targetSdk 28 / compileSdk 35
+  targetSdk 28 是本课程实验的约定范围，不用于应用商店发布。
+
+三、如何启动
+
+  方式一：Android Studio（推荐）
+    1. 打开 Android Studio，选择本目录 Notes-maintain（不要打开它的上一级目录）；
+    2. 首次同步会自动生成 local.properties；若未生成，手动写入：
+         sdk.dir=C\:\\Users\\l\\AppData\\Local\\Android\\Sdk
+    3. Settings → Build, Execution, Deployment → Build Tools → Gradle，
+       把 Gradle JDK 设为 JDK 21（本机 D:\Java_JDK\jdk-21.0.11）；
+    4. 等待 Gradle Sync 完成，选择模拟器（本机已有 Medium_Phone_API_37.0），
+       点击 Run 'app'。
+
+  方式二：命令行
+    Windows：
+      gradlew.bat assembleDebug
+    安装到已启动的模拟器：
+      gradlew.bat installDebug
+    APK 产物：build\outputs\apk\debug\MiCodeNotes-debug.apk
+
+  首次构建需要联网下载 Gradle 发行包与 AGP 依赖，约数百 MB。
+  本工程 wrapper 已改用腾讯云镜像，官方源在国内实测速度过低。
+
+四、本次维护内容
+
+  纠正性维护（2 处数据访问缺陷）
+    1. NotesProvider.delete 在调用方未传 selection 时，条件被拼成
+       "(null) AND _id>0"，导致删除语句不成立；改为仅在确实有条件时拼接。
+    2. NotesProvider.increaseNoteVersion 用 String.replaceFirst 把参数直接
+       替换进 SQL 文本，参数中含引号或逻辑运算符时会改变语义；改为 SQLite
+       绑定参数，条件片段与参数分离。
+
+  改善性维护（3 个原软件没有的功能）
+    1. 便签锁定：编辑页菜单可把便签设为只读，锁定的便签禁止编辑，
+       列表中显示 [锁定] 标记。
+    2. 便签标签：编辑页可为便签设置最多 3 个标签（逗号分隔），
+       列表显示标签，并可按标签筛选便签。
+    3. 列表排序：可在“修改时间/创建时间、升序/降序”之间切换，
+       文件夹始终排在便签之前。
+
+  数据库版本由 v4 升到 v5，仅新增 is_locked、tags 两列，均带默认值，
+  不重建用户表，已有便签数据保留。
+
+五、目录说明
+  src/       Java 源码（原始目录结构，未改为 app/src/main）
+  res/       资源
+  AndroidManifest.xml
+  build.gradle / settings.gradle / gradle.properties / lint.xml
+  docs/      开发记录与过程材料
+
+六、原始开源声明
+  1. MiCode 便签是小米便签的社区开源版，由 MIUI 团队发起并贡献第一批代码，
+     遵循 NOTICE 文件所描述的开源协议，由 MiCode 社区发布和维护。
+  2. 原始项目地址：https://github.com/MiCode/Notes
