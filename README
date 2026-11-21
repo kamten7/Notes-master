@@ -18,14 +18,18 @@
 
   方式一：Android Studio（推荐）
     1. 打开 Android Studio，选择本目录 Notes-maintain（不要打开它的上一级目录）；
-    2. 首次同步会自动生成 local.properties；若未生成，手动写入：
-         sdk.dir=C\:\\Users\\l\\AppData\\Local\\Android\\Sdk
+    2. 首次同步会自动生成 local.properties；若未生成，按自己机器的 SDK 路径手动写入：
+         sdk.dir=C\:\\Users\\<你的用户名>\\AppData\\Local\\Android\\Sdk
     3. Settings → Build, Execution, Deployment → Build Tools → Gradle，
        把 Gradle JDK 设为 JDK 21（本机 D:\Java_JDK\jdk-21.0.11）；
     4. 等待 Gradle Sync 完成，选择模拟器（本机已有 Medium_Phone_API_37.0），
        点击 Run 'app'。
 
   方式二：命令行
+    命令行构建不读 Android Studio 的配置，必须先满足下面任一条，
+    否则会报 “SDK location not found”：
+      a) 工程根目录有 local.properties，里面写 sdk.dir=<SDK 绝对路径>；或
+      b) 设置了环境变量 ANDROID_HOME，指向 SDK 根目录。
     Windows：
       gradlew.bat assembleDebug
     安装到已启动的模拟器：
